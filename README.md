@@ -1,3 +1,7 @@
+**** NO LONGER SYNCING WITH SOURCE REPOSITORY **
+
+The owner of the source repository started allowing poorly reviewed commits to make it to master. We will no longer be syncing with the source repository. Long term solution is to rebuild our own codemirror wrapper plugin; short term solution is to use the master branch of this fork.
+
 CodeMirror for TinyMCE4
 =======================
 
