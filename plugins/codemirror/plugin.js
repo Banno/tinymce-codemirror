@@ -18,6 +18,11 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 		editor.selection.collapse(true);
 		editor.selection.setContent('<span class="CmCaReT" style="display:none">&#0;</span>');
 
+		//get original scroll position
+		var oldPos = tinymce.DOM.getViewPort();
+		//scroll to top of page
+		scrollTo(0, 0);
+
 		var config = {
 			title: 'HTML source code',
 			url: url + '/source.html',
@@ -41,6 +46,10 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 		if (editor.settings.codemirror.fullscreen) {
 			win.fullscreen(true);
 		}
+
+		//scroll back to original position
+		scrollTo(oldPos.x, oldPos.y);
+
 	};
 
 	// Add a button to the button bar
