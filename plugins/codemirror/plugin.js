@@ -16,6 +16,13 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 		// Insert caret marker
 		editor.focus();
 		editor.selection.collapse(true);
+		// Preserve deliberate line-spacing at the caret position
+		var bogusChild = editor.selection.getNode().querySelector('br[data-mce-bogus]');
+		if (bogusChild) {
+			editor.selection.setContent('&nbsp;');
+			editor.selection.getNode().removeChild(bogusChild);
+		}
+		// Resume/finish caret insertion
 		editor.selection.setContent('<span class="CmCaReT" style="display:none">&#0;</span>');
 
 		//get original scroll position
