@@ -208,6 +208,16 @@ function submit()
 		doc.replaceRange(curLineHTML, CodeMirror.Pos(pos.line, 0), CodeMirror.Pos(pos.line));
 	}
 
+	// Don't set cursor when at the root level, outside of any blocks
+	var testContent = document.createElement("div");
+	testContent.innerHTML = codemirror.getValue().replace(cc, '<span id="CmCaReT"></span>');
+	testContent.childNodes.forEach(child => {
+		if (child.id === "CmCaReT") {
+			curLineHTML = curLineHTML.replace(cc, '');
+			doc.replaceRange(curLineHTML, CodeMirror.Pos(pos.line, 0), CodeMirror.Pos(pos.line));
+		}
+	});
+
 	// Submit HTML to TinyMCE:
 	editor.setContent(codemirror.getValue().replace(cc, '<span id="CmCaReT"></span>'));
 	editor.isNotDirty = !isDirty;
