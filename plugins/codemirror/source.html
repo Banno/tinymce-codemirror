@@ -232,6 +232,10 @@ function submit()
 		editor.selection.setCursorLocation(el,0);
 		editor.dom.remove(el);
 	}
+
+	// Cleanup
+	editor.bodyElement.querySelectorAll("#CmCaReT, .CmCaReT").forEach(cm => editor.dom.remove(cm));
+
 }
 
 </script>
