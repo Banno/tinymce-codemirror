@@ -219,7 +219,16 @@ function submit()
 	});
 
 	// Submit HTML to TinyMCE:
-	editor.setContent(codemirror.getValue().replace(cc, '<span id="CmCaReT"></span>'));
+	var code = codemirror.getValue();
+	if(code.search(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi) !== -1 ||
+	code.search(/<\s*style[^>]*>(.*?)<\s*\/\s*style>/gi !== -1))
+	{
+		editor.setContent(codemirror.getValue().replace(cc, ''));
+	}
+	else
+	{
+		editor.setContent(codemirror.getValue().replace(cc, '<span id="CmCaReT"></span>'));
+	}
 	editor.isNotDirty = !isDirty;
 	if (isDirty) {
 		editor.nodeChanged();

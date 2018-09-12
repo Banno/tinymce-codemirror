@@ -23,7 +23,9 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 			editor.selection.getNode().removeChild(bogusChild);
 		}
 		// Resume/finish caret insertion
-		editor.selection.setContent('<span class="CmCaReT" style="display:none">&#0;</span>');
+		if (editor.selection.getNode().nodeName !== "STYLE") {
+			editor.selection.setContent('<span class="CmCaReT" style="display:none">&#0;</span>');
+		}
 
 		//get original scroll position
 		var oldPos = tinymce.DOM.getViewPort();
