@@ -2,6 +2,13 @@
 <html>
 <head>
 <script>
+  try {
+    document.domain = "banno.com";
+  } catch (error) {
+    console.warn('`document.domain` could not be set. The content editor will not work (because of cross domain issues), but the rest of the application should not be affected.');
+  }
+</script>
+<script>
 
 /**
  * source.html
