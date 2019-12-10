@@ -32,6 +32,7 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 		//scroll to top of page
 		scrollTo(0, 0);
 
+		const sourceEditorTargetContent = editor.contentDocument;
 		var config = {
 			title: 'HTML source code',
 			url: url + '/source.html',
@@ -43,6 +44,10 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 			buttons: [
 				{ text: 'Ok', subtype: 'primary', onclick: function(){
 					var doc = document.querySelectorAll('.mce-container-body>iframe')[0];
+					sourceEditorTargetContent.dispatchEvent(new Event('input', {
+						bubbles: true,
+						details: doc
+					}));
 					doc.contentWindow.submit();
 					win.close();
 				}},
