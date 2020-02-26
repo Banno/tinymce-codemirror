@@ -66,6 +66,10 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 
 	};
 
+  // If either the .addButton.title or .addMenuItem.text changes, this will break some logic in 
+  // the page editor for disabling buttons (save, etc) in the header. 
+  // https://github.com/Banno/platform-ux/pull/8418/files#diff-93d7632a21b27d323a46cfd5939b6758R178
+  
 	// Add a button to the button bar
 	editor.addButton('code', {
 		title: 'Source code',
