@@ -14,6 +14,9 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 
 	function showSourceEditor() {
 		// Insert caret marker
+		if (document && document.activeElement) {
+			document.activeElement.blur();
+		}
 		editor.focus();
 		editor.selection.collapse(true);
 		// Preserve deliberate line-spacing at the caret position
