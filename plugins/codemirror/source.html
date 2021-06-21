@@ -135,6 +135,7 @@ function start()
 	head.appendChild(div);
 
 	// Set CodeMirror cursor and bookmark to same position as cursor was in TinyMCE:
+	editor.dom.remove(editor.dom.select('#__caret'));
 	var html = editor.getContent({source_view: true});
 	editor.selection.getBookmark();
 	html = html.replace(/<span\s+class="CmCaReT"([^>]*)>([^<]*)<\/span>/gm, String.fromCharCode(chr));

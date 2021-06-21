@@ -14,9 +14,6 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 
 	function showSourceEditor() {
 		// Insert caret marker
-		if (document && document.activeElement) {
-			document.activeElement.blur();
-		}
 		editor.focus();
 		editor.selection.collapse(true);
 		// Preserve deliberate line-spacing at the caret position
@@ -36,6 +33,11 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 		scrollTo(0, 0);
 
 		const sourceEditorTargetContent = editor.contentDocument;
+
+		const toolbars = Array.from(sourceEditorTargetContent.querySelectorAll('.mce-tinymce-inline'));
+		toolbars.forEach(toolbar => {
+			toolbar.classList.add('hidden-toolbar');
+		});
 		var config = {
 			title: 'HTML source code',
 			url: url + '/source.html',
@@ -52,9 +54,17 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 						details: doc
 					}));
 					doc.contentWindow.submit();
+					toolbars.forEach(toolbar => {
+						toolbar.classList.remove('hidden-toolbar');
+					});
 					win.close();
 				}},
-				{ text: 'Cancel', onclick: 'close' }
+				{ text: 'Cancel', onclick: function () {
+					toolbars.forEach(toolbar => {
+						toolbar.classList.remove('hidden-toolbar');
+					});
+					win.close();
+				}}
 			]
 		};
 
@@ -67,12 +77,13 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 		//scroll back to original position
 		scrollTo(oldPos.x, oldPos.y);
 
+		editor.targetElm.blur();
 	};
 
-  // If either the .addButton.title or .addMenuItem.text changes, this will break some logic in 
-  // the page editor for disabling buttons (save, etc) in the header. 
+  // If either the .addButton.title or .addMenuItem.text changes, this will break some logic in
+  // the page editor for disabling buttons (save, etc) in the header.
   // https://github.com/Banno/platform-ux/pull/8418/files#diff-93d7632a21b27d323a46cfd5939b6758R178
-  
+
 	// Add a button to the button bar
 	editor.addButton('code', {
 		title: 'Source code',
