@@ -3,7 +3,8 @@
 <head>
 <script>
   try {
-    document.domain = "banno.com";
+    const hostParts = window.location.hostname.split('.');
+    document.domain = hostParts.slice(hostParts.length - 2, hostParts.length).join('.');
   } catch (error) {
     console.warn('`document.domain` could not be set. The content editor will not work (because of cross domain issues), but the rest of the application should not be affected.');
   }
