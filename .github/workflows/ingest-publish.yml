@@ -1,0 +1,65 @@
+name: Ingest & Publish TinyMCE Distribution
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - 'manifest.json'
+  pull_request:
+    branches:
+      - master
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  verify:
+    name: Ingest & Verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run Ingestion
+        run: node scripts/ingest.mjs
+
+      - name: Verify Bundle
+        run: node scripts/verify.mjs
+
+  publish:
+    name: Publish to Artifactory
+    needs: verify
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run Ingestion
+        run: node scripts/ingest.mjs
+
+      - name: Verify Bundle
+        run: node scripts/verify.mjs
+
+      - name: Setup Artifactory OIDC / Token
+        run: |
+          echo "//artifactory.banno-tools.com/artifactory/api/npm/npm/:_authToken=${{ secrets.ARTIFACTORY_API_TOKEN }}" >> dist/.npmrc
+          echo "@banno:registry=https://artifactory.banno-tools.com/artifactory/api/npm/npm/" >> dist/.npmrc
+
+      - name: Publish Package
+        working-directory: dist
+        run: npm publish

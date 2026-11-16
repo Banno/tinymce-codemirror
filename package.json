@@ -1,26 +1,13 @@
 {
-  "name": "tinymce-codemirror",
-  "version": "1.4.9",
-  "description": "CodeMirror for TinyMCE 4",
-  "main": "plugins/plugin.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/christiaan/tinymce-codemirror.git"
+  "name": "@banno/tinymce-dist-pipeline",
+  "version": "1.0.0",
+  "description": "Audited packaging pipeline for @banno/tinymce",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "ingest": "node scripts/ingest.mjs",
+    "verify": "node scripts/verify.mjs"
   },
-  "scripts" : {
-    "prepublish": "./node_modules/.bin/uglifyjs plugins/codemirror/plugin.js -o plugins/codemirror/plugin.min.js -m"
-  },
-  "keywords": [
-    "tinymce",
-    "codemirror"
-  ],
-  "author": "Arjan Haverkamp",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/christiaan/tinymce-codemirror/issues"
-  },
-  "homepage": "https://github.com/christiaan/tinymce-codemirror#readme",
-  "devDependencies": {
-    "uglify-js": "^2.7.0"
-  }
+  "author": "Banno Articuno",
+  "license": "UNLICENSED"
 }
