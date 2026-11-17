@@ -1,0 +1,23 @@
+{
+  "packageName": "@banno/tinymce",
+  "version": "8.10.2",
+  "licenseKeyPrefix": "T8LK",
+  "sources": {
+    "tinymce": {
+      "version": "8.10.2",
+      "integrity": "sha512-Y4A2fB8MZZ+4U4453b75A6G3yvI5+3534b8c9c0e2f0da774e261ce902c5ec6d32d942d5e21036"
+    },
+    "tinymcePremium": {
+      "version": "8.10.2",
+      "integrity": "sha512-3277efe7776a45c09f9ec5ef5bf210e62e3aba8e"
+    }
+  },
+  "requiredPlugins": [
+    "licensekeymanager",
+    "advcode",
+    "powerpaste",
+    "editimage",
+    "tableofcontents",
+    "media"
+  ]
+}
